@@ -92,9 +92,9 @@ export default function About() {
 
 
           <p className="text-gray-300 leading-relaxed max-w-3xl">
-            I'm a Software Developer, Content Creator, and Web Developer —
+            I'm a Software Developer and Web Developer —
             passionate about building fast, resilient applications and sharing
-            coding insights on Instagram and YouTube.
+            coding insights on Github and LinkedIn
           </p>
           <p className="text-gray-500 mt-4 max-w-3xl">
             I love turning ideas into scalable, user-friendly products that make
