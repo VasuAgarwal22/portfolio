@@ -30,6 +30,7 @@ export default function footer(){
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
+        
         <h1
           className="font-semibold leading-none text-white text-center select-none"
           style={{
@@ -63,8 +64,7 @@ export default function footer(){
           ))}
         </div>
         <div className="mt-10 text-center text-gray-400 text-sm md:text-base flex items-center justify-center gap-2">
-          <span>Created with</span>
-          <FaHeart className="text-red-500 animate-pulse" />
+          <span>Created</span>
           <span>by Vasu Agarwal</span>
         </div>
       </motion.div>
