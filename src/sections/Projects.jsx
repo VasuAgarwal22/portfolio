@@ -82,9 +82,6 @@ export default function Projects() {
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-14 max-w-2xl">
-          <span className="inline-block text-xs tracking-[0.3em] font-mono text-teal-400 mb-3">
-            MISSION LOG
-          </span>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">Projects</h2>
           <p className="text-white/60 text-base md:text-lg">
             A record of things built along the way. New transmissions land here
