@@ -2,6 +2,40 @@ import React, { useState, useEffect } from "react";
 import photo from "../assets/Astra.png";
 import email from "@emailjs/browser";
 
+// Particles component defined OUTSIDE Contact so it doesn't
+// get recreated (and re-randomized) on every re-render
+function Particles({ count = 50 }) {
+  const particles = Array.from({ length: count }).map((_, i) => {
+    const size = Math.random() * 2 + 1; // 1px - 3px
+    const left = Math.random() * 100; // % across
+    const delay = Math.random() * 5; // stagger start
+    const duration = Math.random() * 10 + 8; // 8s - 18s float
+    const opacity = Math.random() * 0.5 + 0.3;
+
+    return (
+      <span
+        key={i}
+        className="absolute rounded-full bg-white animate-float"
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          left: `${left}%`,
+          top: `${Math.random() * 100}%`,
+          opacity,
+          animationDelay: `${delay}s`,
+          animationDuration: `${duration}s`,
+        }}
+      />
+    );
+  });
+
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {particles}
+    </div>
+  );
+}
+
 export default function Contact() {
   const [form, setForm] = useState({
     name: "",
@@ -80,6 +114,9 @@ export default function Contact() {
         style={{ animationDelay: "1.5s" }}
         aria-hidden="true"
       />
+
+      {/* Particles - contact page only */}
+      <Particles count={50} />
 
       <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         {/* Astronaut Image */}

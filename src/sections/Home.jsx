@@ -47,29 +47,17 @@ React.useEffect(()=>{
       className="w-full h-screen relative bg-black overflow-hidden"
     >
       <ParticlesBackground />
+      <ParticlesBackground />
       <div className="absolute inset-0">
         <div
-          className="absolute -top-32 -left-32 
-          w-[70vw] sm:w-[z-500vw] md:w-[40vw]
-          h-[70vw] sm:h-[50vw] md:h-[40vw]
-          max-w-[500px] max-h-[500px]
-          rounded-full
-          bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2]
-          opacity-30 sm:opacity-20 md:opacity-10
-          blur-[100px] sm:blur-[130px] md:blur-[150px]
-          animate-pulse"
-        ></div>
+          className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 md:w-96 md:h-96 rounded-full bg-teal-400/30 blur-3xl animate-pulse"
+          aria-hidden="true"
+        />
         <div
-          className="absolute bottom-0 right-0 
-          w-[70vw] sm:w-[70vw] md:w-[40vw]
-           h-[70vw] sm:h-[50vw] md:h-[40vw]
-          max-w-[500px] max-h-[500px]
-          rounded-full
-          bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2]
-          opacity-30 sm:opacity-20 md:opacity-10
-          blur-[100px] sm:blur-[130px] md:blur-[150px]
-          animate-pulse delay-500"
-        ></div>
+          className="pointer-events-none absolute -bottom-24 -right-24 w-72 h-72 md:w-96 md:h-96 rounded-full bg-teal-400/30 blur-3xl animate-pulse"
+          style={{ animationDelay: "1.5s" }}
+          aria-hidden="true"
+        />
       </div>
 
       <div className="relative z-10 h-full w-full max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2">
@@ -159,23 +147,31 @@ React.useEffect(()=>{
         </div>
         <div className="relative hidden lg:block">
           <div
-          className="absolute top-1/2 translate-y-1/2 pointer-events-none"
-          style={{
-            right:'10px',width:"min(22vw,410px)",height:"min(40vw 760px)",borderRadius:"50%",
-            filter:"blur(38px)",opacity:0.32,
-            background:"conic-gradient(from 0deg ,#1cd8d2,#00bf8f,#302b63,#1cd8d2)"
-          }}
+            className="absolute top-1/2 translate-y-1/2 pointer-events-none"
+            style={{
+              right: "10px",
+              width: "min(22vw,410px)",
+              height: "min(40vw 760px)",
+              borderRadius: "50%",
+              filter: "blur(38px)",
+              opacity: 0.32,
+              background:
+                "conic-gradient(from 0deg ,#1cd8d2,#00bf8f,#302b63,#1cd8d2)",
+            }}
           />
-                 
-          <motion.img src={avator} alt="Vasu Agarwal"
-          className="absolute top-1/2 -translate-y-1/2 object-contain select-none pointer-events-none" 
-          style={{
-            right:'-30px',width:'min(45vw,780px)',maxHeight:'90vh'
-          }}
-          initial={{opacity:0,y:40,scale:0.98}}
-          animate= {{opacity:1,y:0,scale:1}}
-          transition={{delay:0.2,duration:0.8}}
-          
+
+          <motion.img
+            src={avator}
+            alt="Vasu Agarwal"
+            className="absolute top-1/2 -translate-y-1/2 object-contain select-none pointer-events-none"
+            style={{
+              right: "-30px",
+              width: "min(45vw,780px)",
+              maxHeight: "90vh",
+            }}
+            initial={{ opacity: 0, y: 40, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
           />
         </div>
       </div>
