@@ -1,40 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import photo from "../assets/Astra.png";
 import email from "@emailjs/browser";
-
-// Particles component defined OUTSIDE Contact so it doesn't
-// get recreated (and re-randomized) on every re-render
-function Particles({ count = 50 }) {
-  const particles = Array.from({ length: count }).map((_, i) => {
-    const size = Math.random() * 2 + 1; // 1px - 3px
-    const left = Math.random() * 100; // % across
-    const delay = Math.random() * 5; // stagger start
-    const duration = Math.random() * 10 + 8; // 8s - 18s float
-    const opacity = Math.random() * 0.5 + 0.3;
-
-    return (
-      <span
-        key={i}
-        className="absolute rounded-full bg-white animate-float"
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          left: `${left}%`,
-          top: `${Math.random() * 100}%`,
-          opacity,
-          animationDelay: `${delay}s`,
-          animationDuration: `${duration}s`,
-        }}
-      />
-    );
-  });
-
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {particles}
-    </div>
-  );
-}
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -48,6 +14,19 @@ export default function Contact() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
+  // Create static decorative particles only once
+  const particles = useMemo(() => {
+    return Array.from({ length: 35 }, (_, i) => ({
+      id: i,
+      size: Math.random() * 2 + 1,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 5,
+      duration: Math.random() * 10 + 8,
+      opacity: Math.random() * 0.5 + 0.3,
+    }));
+  }, []);
+
   useEffect(() => {
     if (success || error) {
       const timer = setTimeout(() => {
@@ -60,7 +39,10 @@ export default function Contact() {
   }, [success, error]);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -103,33 +85,111 @@ export default function Contact() {
       id="contact"
       className="relative bg-black text-white py-24 px-6 md:px-16 overflow-hidden"
     >
-      {/* Background Glow */}
+      {/* ========================================
+          BACKGROUND GLOWS
+          ======================================== */}
+
       <div
-        className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 md:w-96 md:h-96 rounded-full bg-teal-400/30 blur-3xl animate-pulse"
+        className="
+          pointer-events-none
+          absolute
+          -top-24
+          -left-24
+          w-72
+          h-72
+          md:w-96
+          md:h-96
+          rounded-full
+          bg-teal-400/20
+          blur-2xl
+          md:blur-3xl
+        "
         aria-hidden="true"
       />
 
       <div
-        className="pointer-events-none absolute -bottom-24 -right-24 w-72 h-72 md:w-96 md:h-96 rounded-full bg-teal-400/30 blur-3xl animate-pulse"
-        style={{ animationDelay: "1.5s" }}
+        className="
+          pointer-events-none
+          absolute
+          -bottom-24
+          -right-24
+          w-72
+          h-72
+          md:w-96
+          md:h-96
+          rounded-full
+          bg-teal-400/20
+          blur-2xl
+          md:blur-3xl
+        "
         aria-hidden="true"
       />
 
-      {/* Particles - contact page only */}
-      <Particles count={50} />
+      {/* ========================================
+          LIGHTWEIGHT DECORATIVE PARTICLES
+          ======================================== */}
+
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden="true"
+      >
+        {particles.map((particle) => (
+          <span
+            key={particle.id}
+            className="absolute rounded-full bg-white animate-float"
+            style={{
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+              opacity: particle.opacity,
+              animationDelay: `${particle.delay}s`,
+              animationDuration: `${particle.duration}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ========================================
+          CONTENT
+          ======================================== */}
 
       <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        {/* Astronaut Image */}
+        {/* ========================================
+            ASTRONAUT
+            ======================================== */}
+
         <div className="flex justify-center md:justify-start">
           <img
             src={photo}
             alt="Astronaut"
-            className="w-96 md:w-[32rem] object-contain"
+            loading="lazy"
+            decoding="async"
+            className="
+              w-72
+              sm:w-80
+              md:w-[32rem]
+              object-contain
+              select-none
+            "
           />
         </div>
 
-        {/* Contact Form */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm">
+        {/* ========================================
+            CONTACT FORM
+            ======================================== */}
+
+        <div
+          className="
+            bg-white/5
+            border
+            border-white/10
+            rounded-2xl
+            p-6
+            sm:p-8
+            backdrop-blur-sm
+          "
+        >
           <h2 className="text-2xl md:text-3xl font-bold mb-6">
             Let's Work Together
           </h2>
@@ -148,7 +208,20 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder="Your Name"
                 required
-                className="w-full bg-black/40 border border-white/20 rounded-lg px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-teal-400 transition-colors"
+                className="
+                  w-full
+                  bg-black/40
+                  border
+                  border-white/20
+                  rounded-lg
+                  px-4
+                  py-3
+                  text-sm
+                  placeholder-gray-500
+                  focus:outline-none
+                  focus:border-teal-400
+                  transition-colors
+                "
               />
             </div>
 
@@ -165,7 +238,20 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder="Your Email"
                 required
-                className="w-full bg-black/40 border border-white/20 rounded-lg px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-teal-400 transition-colors"
+                className="
+                  w-full
+                  bg-black/40
+                  border
+                  border-white/20
+                  rounded-lg
+                  px-4
+                  py-3
+                  text-sm
+                  placeholder-gray-500
+                  focus:outline-none
+                  focus:border-teal-400
+                  transition-colors
+                "
               />
             </div>
 
@@ -180,18 +266,35 @@ export default function Contact() {
                 value={form.service}
                 onChange={handleChange}
                 required
-                className="w-full bg-black/40 border border-white/20 rounded-lg px-4 py-3 text-sm text-gray-300 focus:outline-none focus:border-teal-400 transition-colors"
+                className="
+                  w-full
+                  bg-black/40
+                  border
+                  border-white/20
+                  rounded-lg
+                  px-4
+                  py-3
+                  text-sm
+                  text-gray-300
+                  focus:outline-none
+                  focus:border-teal-400
+                  transition-colors
+                "
               >
                 <option value="" disabled>
                   Something in mind?
                 </option>
 
                 <option value="Web Development">Web Development</option>
+
                 <option value="Full Stack Application">
                   Full Stack Application
                 </option>
+
                 <option value="API Development">API Development</option>
+
                 <option value="UI/UX Design">UI/UX Design</option>
+
                 <option value="Other">Other</option>
               </select>
             </div>
@@ -209,7 +312,21 @@ export default function Contact() {
                 placeholder="Explain your idea..."
                 rows={5}
                 required
-                className="w-full bg-black/40 border border-white/20 rounded-lg px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-teal-400 transition-colors resize-none"
+                className="
+                  w-full
+                  bg-black/40
+                  border
+                  border-white/20
+                  rounded-lg
+                  px-4
+                  py-3
+                  text-sm
+                  placeholder-gray-500
+                  focus:outline-none
+                  focus:border-teal-400
+                  transition-colors
+                  resize-none
+                "
               />
             </div>
 
@@ -217,20 +334,32 @@ export default function Contact() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-all duration-300"
+              className="
+                w-full
+                bg-blue-600
+                hover:bg-blue-700
+                disabled:bg-gray-600
+                disabled:cursor-not-allowed
+                text-white
+                font-semibold
+                py-3
+                rounded-lg
+                transition-all
+                duration-300
+              "
             >
               {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
 
-          {/* Success Message */}
+          {/* Success */}
           {success && (
             <p className="mt-5 text-center text-green-400 font-medium">
               ✅ Your message has been sent successfully!
             </p>
           )}
 
-          {/* Error Message */}
+          {/* Error */}
           {error && (
             <p className="mt-5 text-center text-red-400 font-medium">
               ❌ Failed to send message. Please try again.
