@@ -2,7 +2,7 @@ import React from "react";
 import profile from "../assets/WhatsApp Image 2026-05-23 at 7.20.16 AM.jpeg"
 export default function About() {
   return (
-    <section className="relative bg-black text-white px-6 md:px-16 py-16 min-h-screen overflow-hidden">
+    <section className="relative bg-black text-white px-6 md:px-16 py-16 min-h-screen overflow-hidden" id="about">
 
       <div
         className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 md:w-96 md:h-96 rounded-full bg-teal-400/30 blur-3xl animate-pulse"

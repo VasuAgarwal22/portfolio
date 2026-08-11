@@ -26,29 +26,37 @@ export default function IntroAnimation({ onFinish }) {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 
-  const FAST_MS = 120; 
-  const LAST_MS = 400; 
+  const FAST_MS = 120;
+  const LAST_MS = 300;
 
   useEffect(() => {
     if (index < greetings.length - 1) {
-      const id = setTimeout(() => setIndex((i) => i + 1), FAST_MS);
+      const id = setTimeout(() => {
+        setIndex((i) => i + 1);
+      }, FAST_MS);
+
       return () => clearTimeout(id);
-    } else {
-      // we're on the last greeting — hold a bit longer, then exit
-      const t = setTimeout(() => setVisible(false), LAST_MS);
-      return () => clearTimeout(t);
     }
+
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, LAST_MS);
+
+    return () => clearTimeout(timer);
   }, [index, greetings.length]);
 
   return (
-    <AnimatePresence onExitComplete={onFinish}>
+    <AnimatePresence mode="wait" onExitComplete={onFinish}>
       {visible && (
         <motion.div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black text-white overflow-hidden"
           initial={{ y: 0 }}
           exit={{
             y: "-100%",
-            transition: { duration: 1.05, ease: [0.22, 1, 0.36, 1] },
+            transition: {
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+            },
           }}
         >
           <motion.h1
