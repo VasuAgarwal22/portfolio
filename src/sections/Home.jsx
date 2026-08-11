@@ -47,7 +47,6 @@ React.useEffect(()=>{
       className="w-full h-screen relative bg-black overflow-hidden"
     >
       <ParticlesBackground />
-      <ParticlesBackground />
       <div className="absolute inset-0">
         <div
           className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 md:w-96 md:h-96 rounded-full bg-teal-400/30 blur-3xl animate-pulse"
